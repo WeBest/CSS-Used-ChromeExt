@@ -1,3 +1,15 @@
+**ver 2.2.6 | 08/30/2017**
+
+1.Fix. css link with empty href
+
+**ver 2.2.5 | 08/25/2017**
+
+1.Change Send-to-codepen's url from "http://" to "https://"
+
+**ver 2.2.4 | 08/23/2017**
+
+1.Add. User-friendly way of requesting file access
+
 **ver 2.2.3 | 04/30/2017**
 
 1.fix bug that the first comment is lost

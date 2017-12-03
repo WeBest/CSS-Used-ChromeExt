@@ -57,7 +57,8 @@ function getC($0) {
 
     var links=[];
     Array.prototype.forEach.call($0.ownerDocument.querySelectorAll('link[rel~="stylesheet"][href]'), function(ele) {
-        if(ele.href && (externalCssCache[ele.href] === undefined) ){
+        // if href==='' , ele.getAttribute('href') !== ele.href
+        if(ele.getAttribute('href') && (externalCssCache[ele.href] === undefined) ){
             links.push(ele.href);
         }
     });
@@ -493,7 +494,7 @@ function makeRequest(url) {
         xhr.responseType = 'arraybuffer';
         xhr.open('get', url);
         xhr.onload = function() {
-            if (this.status >= 200 && this.status < 300) {
+            if ( (this.status >= 200 && this.status < 300 )|| (url.match(/^file:\/\/\//)!==null)) {
                 var decoder;
                 if (isutf8(new Uint8Array(xhr.response))) {
                     decoder = new TextDecoder('UTF-8');
@@ -517,7 +518,8 @@ function makeRequest(url) {
                 resolve(result);
             }
         };
-        xhr.onerror = function() {
+        xhr.onerror = function(e) {
+            console.log('Fail to get: '+url);
             result.cssraw="";
             result.status=this.status;
             result.statusText=this.statusText;
